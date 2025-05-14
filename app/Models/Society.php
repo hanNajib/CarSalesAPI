@@ -11,8 +11,14 @@ class Society extends Model
 
     protected $guarded = [];
     protected $table = "societies";
+    protected $hidden = ["password"];
 
     public function regional() {
         return $this->belongsTo(Regionals::class, 'regional_id');
     }
+
+    public function validations() {
+        return $this->hasMany(Validations::class, 'society_id');
+    }
+
 }

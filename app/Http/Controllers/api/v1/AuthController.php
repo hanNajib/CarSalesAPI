@@ -15,9 +15,9 @@ class AuthController extends Controller
             "password" => "required"
         ]);
 
-        $society = Society::where('id_card_number')->first();
+        $society = Society::where('id_card_number', $req->id_card_number)->first();
         
-        if(!$society || $society->password !== $req->password) {
+        if(!$society || $society->password != $req->password) {
             return Controller::message("ID Card Number or Password incorrect", 401);
         }
 
@@ -29,7 +29,7 @@ class AuthController extends Controller
             "gender" => $society->gender,
             "address" => $society->address,
             "token" => $token,
-            "regional" => $society->load('regional')
+            "regional" => $society->load('regional')->regional
         ]);
     }
 
